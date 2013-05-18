@@ -1,0 +1,6 @@
+@startuml
+
+Bob -> JFF: Search for 'mozarella'
+JFF --> Bob: Show information about food containing 'mozarella'
+
+@enduml
