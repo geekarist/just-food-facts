@@ -10,6 +10,8 @@ angular.module('justFoodFactsApp')
         {name: 'Tomate mozzarella', energy: '50', proteins: '4', carbohydrates: '3', fat: '9'}
     ]
 
+    // TODO: Use $scope.$watch to get food facts from backend on search filter modification
+
     $scope.awesomeThings = [
       'HTML5 Boilerplate',
       'AngularJS',
