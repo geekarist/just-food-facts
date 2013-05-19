@@ -1,6 +1,22 @@
 @startuml
 
-Bob -> JFF: Search for 'mozarella'
-JFF --> Bob: Show information about food containing 'mozarella'
+participant Chris
+participant Clerk
+box "Back"
+	participant Warehouseman
+	participant Grocery
+end box
+
+== Once at application startup ==
+Warehouseman -> Grocery: Stock shelves with food
+note right: Parse openfoodfacts_search.csv
+
+== During user session ==
+Chris -> Clerk: Search for 'mozzarella'
+Clerk -> Warehouseman: Send GET request
+Warehouseman -> Grocery: Get food matching 'mozzarella'
+Grocery -> Warehouseman: Return search result
+Warehouseman --> Clerk: Return GET response
+Clerk --> Chris: Show results
 
 @enduml
