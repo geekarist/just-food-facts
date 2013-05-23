@@ -1,5 +1,7 @@
-node_modules
-dist
-.tmp
-.sass-cache
-app/components
+/build
+/components
+/node_modules
+/npm-debug.log
+.DS_STORE
+.sass-cache/
+.tmp/
