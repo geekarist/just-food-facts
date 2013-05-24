@@ -15,6 +15,11 @@ module.exports = (grunt)->
   # Optimize pre-built, web-accessible resources for production, primarily `usemin`
   grunt.registerTask('optimize', [ 'useminPrepare', 'concat', 'uglify', 'mincss', 'usemin' ])
 
+  # Run backend unit tests
+  grunt.registerTask('default', 'simplemocha' )
+
+  # Start express server and run backend unit tests
+  grunt.registerTask('test-back', ['express', 'simplemocha'])
 
   # Configuration
   grunt.config.init
@@ -91,7 +96,9 @@ module.exports = (grunt)->
                       '<%= CLIENT_DIR + JS_FILES %>' ]
       options:
         es5:        true
-        laxcomma:   true  # Common in Express-derived libraries
+        laxcomma:   true # Common in Express-derived libraries
+        asi:        true # Ignore missing semicolons
+        expr:       true # Ignore error on expression without function call
 
     # Browser-based testing
     karma:
@@ -186,6 +193,17 @@ module.exports = (grunt)->
     useminPrepare:
       html:         '<%= BUILD_DIR %>/index.html'
 
+    simplemocha:
+      options:
+        # globals: ['should'],
+        timeout: 3000,
+        ignoreLeaks: false,
+        globals: ['i']    # Ignore global leak for this variable
+        # grep: '*-test',
+        ui: 'bdd',
+        reporter: 'spec'  # Use spec reporter 
+      all: 
+        src: ['server/test/*.js']
 
   # Dependencies
   grunt.loadNpmTasks('grunt-angular-templates')
@@ -202,3 +220,4 @@ module.exports = (grunt)->
   grunt.loadNpmTasks('grunt-regarde')
   grunt.loadNpmTasks('grunt-parallel')
   grunt.loadNpmTasks('grunt-usemin')
+  grunt.loadNpmTasks('grunt-simple-mocha')

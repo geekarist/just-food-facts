@@ -5,10 +5,10 @@ describe('Warehouseman', function() {
 	it('should get food', function(done) {
 		// GIVEN
 		var food = 'mozza'
-		var host = 'http://localhost:4000'
+		var host = 'http://localhost:3000'
 
 		// WHEN
-		request.get(host + '/get-food-facts?q=' + food, function(error, response, body) {
+		request.get(host + '/api/get-food-facts?q=' + food, function(error, response, body) {
 
 			// THEN
 			expect(error).to.be.null

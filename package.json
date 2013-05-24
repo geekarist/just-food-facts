@@ -42,6 +42,8 @@
     "grunt-simple-mocha": "~0.4.0",
     "grunt-parallel": "0.0.2",
     "grunt-regarde": "~0.1.1",
-    "grunt-usemin": "~0.1.4"
+    "grunt-usemin": "~0.1.4",
+    "chai": "~1.6.0",
+    "request": "~2.1.0"
   }
 }
