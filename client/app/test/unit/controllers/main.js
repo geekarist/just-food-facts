@@ -1,5 +1,3 @@
-'use strict'
-
 describe('Controller: MainCtrl', function () {
 
 	var ALL_FOOD_FACTS = [

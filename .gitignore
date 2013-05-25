@@ -5,4 +5,5 @@
 .DS_STORE
 .sass-cache/
 .tmp/
-app
+/app
+old.tgz
