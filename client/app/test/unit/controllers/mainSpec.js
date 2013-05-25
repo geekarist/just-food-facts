@@ -13,14 +13,14 @@ describe('Controller: MainCtrl', function () {
 	{name: 'Tomate mozzarella', energy: '50', proteins: '4', carbohydrates: '3', fat: '9'}
 	]
 
-	var backendHost = "http://localhost:4000"
+	var backendHost = "http://localhost:3000"
 
 	var $httpBackend
 	var mainCtrl
 	var scope
 
 	beforeEach(function() {
-		module('justFoodFactsApp')
+		module('app')
 		inject(function ($controller, $rootScope, $injector) {
 			$httpBackend = $injector.get('$httpBackend');
 			scope = $rootScope.$new()
@@ -35,10 +35,6 @@ describe('Controller: MainCtrl', function () {
 		$httpBackend.verifyNoOutstandingRequest();
 	});
 
-	it('should attach a list of awesomeThings to the scope', function () {
-		expect(scope.awesomeThings.length).toBe(3)
-	})
-
 	it('should contain a help message for search', function() {
 		// GIVEN
 		// WHEN
@@ -49,8 +45,8 @@ describe('Controller: MainCtrl', function () {
 
 	it('should get all food facts on first load', function() {
 		// GIVEN
-		$httpBackend.expectGET(backendHost + '/get-food-facts?q=');
-		$httpBackend.when('GET', backendHost + '/get-food-facts?q=').respond(ALL_FOOD_FACTS);
+		$httpBackend.expectGET(backendHost + '/api/get-food-facts?q=');
+		$httpBackend.when('GET', backendHost + '/api/get-food-facts?q=').respond(ALL_FOOD_FACTS);
 
 		// WHEN
 		scope.foodFilter = ''
@@ -65,8 +61,8 @@ describe('Controller: MainCtrl', function () {
 	it('should get all food facts from backend when food filter is updated to an empty value', function(done) {
 		// GIVEN
 		scope.foodFilter = 'mascarpone'
-		$httpBackend.expectGET(backendHost + '/get-food-facts?q=');
-		$httpBackend.when('GET', backendHost + '/get-food-facts?q=').respond(ALL_FOOD_FACTS);
+		$httpBackend.expectGET(backendHost + '/api/get-food-facts?q=');
+		$httpBackend.when('GET', backendHost + '/api/get-food-facts?q=').respond(ALL_FOOD_FACTS);
 
 		// WHEN
 		scope.foodFilter = ''
@@ -80,8 +76,8 @@ describe('Controller: MainCtrl', function () {
 
 	it('should get some food facts from backend when food filter is updated to an non empty value', function(done) {
 		// GIVEN
-		$httpBackend.expectGET(backendHost + '/get-food-facts?q=mozzarella');
-		$httpBackend.when('GET', backendHost + '/get-food-facts?q=mozzarella').respond(SOME_FOOD_FACTS);
+		$httpBackend.expectGET(backendHost + '/api/get-food-facts?q=mozzarella');
+		$httpBackend.when('GET', backendHost + '/api/get-food-facts?q=mozzarella').respond(SOME_FOOD_FACTS);
 
 		// WHEN
 		scope.foodFilter = 'mozzarella'

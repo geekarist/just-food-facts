@@ -15,9 +15,7 @@ angular.module('app')
         })
     })
 
-    $scope.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ]
+    $scope.initFoodFilter = function() {
+      $scope.foodFilter = ''
+    }
   })

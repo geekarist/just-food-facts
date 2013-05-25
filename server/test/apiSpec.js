@@ -9,36 +9,36 @@ describe('Warehouseman', function() {
 
 		// WHEN
 		request.get(host + '/api/get-food-facts?q=' + food, function(error, response, body) {
+			var allFood = JSON.parse(body)
 
 			// THEN
 			expect(error).to.be.null
 			expect(response.statusCode).to.equal(200)
-			expect(body).to.be.equal(JSON.stringify([
-				{name: 'Mozzarella', energy: '300', proteins: '13', carbohydrates: '8', fat: '45'},
-				{name: 'Pizza à la mozzarella', energy: '160', proteins: '8', carbohydrates: '9', fat: '12'},
-				{name: 'Tomate mozzarella', energy: '50', proteins: '4', carbohydrates: '3', fat: '9'},
-				{name: 'Pain au maïs', energy: '100', proteins: '3', carbohydrates: '40', fat: '5'}
-				]))
+			expect(allFood.length).to.be.equal(10)
 			done()
 		})
 	})
 
 	it('should get some food', function(done) {
 		// GIVEN
-		var food = 'mozza'
+		var food = '100% pur jus d\'orange'
 		var host = 'http://localhost:3000'
 
 		// WHEN
 		request.get(host + '/api/get-food-facts?q=' + food, function(error, response, body) {
+			var someFood = JSON.parse(body)
 			
 			// THEN
 			expect(error).to.be.null
 			expect(response.statusCode).to.equal(200)
-			expect(body).to.be.equal(JSON.stringify([
-				{name: 'Mozzarella', energy: '300', proteins: '13', carbohydrates: '8', fat: '45'},
-				{name: 'Pizza à la mozzarella', energy: '160', proteins: '8', carbohydrates: '9', fat: '12'},
-				{name: 'Tomate mozzarella', energy: '50', proteins: '4', carbohydrates: '3', fat: '9'},
-				]))
+			expect(someFood.length).to.be.equal(5)
+			expect(JSON.stringify([ 
+				{ name: '100% pur jus d\'orange', energy: '183', proteins: '0.7', carbohydrates: '9', fat: '0' },
+				{ name: '100% pur jus d\'orange avec pulpe', energy: '202', proteins: '0.5', carbohydrates: '11', fat: '0.1' },
+				{ name: '100% pur jus d\'orange d\'Espagne', energy: '197', proteins: '0.6', carbohydrates: '11.5', fat: '0' },
+				{ name: 'Casino Bio 100% Pur jus d\'orange avec pulpe', energy: '199', proteins: '0.7', carbohydrates: '11', fat: '0' },
+				{ name: 'Pressade 100% pur jus d\'orange bio', energy: '187', proteins: '0.6', carbohydrates: '10.2', fat: '0.1' } 
+				])).to.be.equal(body)
 			done()
 		})
 	})
