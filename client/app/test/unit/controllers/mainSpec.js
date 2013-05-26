@@ -13,7 +13,7 @@ describe('Controller: MainCtrl', function () {
 	{name: 'Tomate mozzarella', energy: '50', proteins: '4', carbohydrates: '3', fat: '9'}
 	]
 
-	var backendHost = "http://localhost:3000"
+	var backendHost = ""
 
 	var $httpBackend
 	var mainCtrl

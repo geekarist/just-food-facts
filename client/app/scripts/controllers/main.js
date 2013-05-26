@@ -4,7 +4,7 @@ angular.module('app')
   .controller('MainCtrl', function ($scope, $http) {
     $scope.messages = messages
 
-    var backendHost = 'http://localhost:3000/api'
+    var backendHost = '/api'
 
     $scope.$watch('foodFilter', function() {
                 $http({method: 'GET', url: backendHost + '/get-food-facts?q=' + $scope.foodFilter})
