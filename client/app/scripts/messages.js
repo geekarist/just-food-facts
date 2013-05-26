@@ -9,7 +9,7 @@ var messages = {
 		headers: {
 			name: "Dénomination",
 			quantity: "100 g",
-			energy: "Energie (kj)",
+			energy: "Energie (kcal)",
 			proteins: "Protéines (g)",
 			carbohydrates: "Glucides (g)",
 			fat: "Lipides (g)"

@@ -14,8 +14,11 @@ app.get('/api/package', function(req, res) {
 var allFoods = []
 
 console.log('Loading open food facts data...')
-fs.readFile(__dirname + '/../../data/openfoodfacts_search.csv', {encoding: 'UTF-8'}, function(error, data) {
-	var lines = data.split('\n')
+fs.readFile(__dirname + '/../../data/openfoodfacts_search.csv', 'UTF-8', function(error, data) {
+    if (error) {
+        throw error
+    }
+    var lines = data.split('\n')
 	console.log(lines.length + ' lines have been read')
 
 	var attrNames
@@ -30,28 +33,38 @@ fs.readFile(__dirname + '/../../data/openfoodfacts_search.csv', {encoding: 'UTF-
 			})
 			var prettyFood = {
 				name: food.product_name,
-				energy: food.energy_100g,
+				energy: Math.round(food.energy_100g * 0.2388),
 				proteins: food.proteins_100g,
 				carbohydrates: food.carbohydrates_100g,
 				fat: food.fat_100g
 			}
-			allFoods.push(prettyFood)
+			if (prettyFood.name && prettyFood.energy) {
+                allFoods.push(prettyFood)
+            }
 		}
 	})
 	console.log(allFoods.length + ' foods have been stored')
 })
+
+var containsAll = function(str, array) {
+    var found = true
+    for (var i = 0; i < array.length; i++) {
+        if (str.indexOf(array[i]) == -1) {
+            return false
+        }
+    }
+    return found
+}
 
 app.get('/api/get-food-facts', function(request, response) {
 	var nameFilter = request.query.q
 	var someFood = allFoods.filter(function(element) {
 		var upperNameFilter = unescape(nameFilter).toUpperCase()
 		var upperName = (element.name || '').toUpperCase()
-		if (upperName.indexOf(upperNameFilter) != -1) {
-			return true
-		}
-		return false
+        var upperNameFilterWords = upperNameFilter.split(/ +/)
+        return containsAll(upperName, upperNameFilterWords)
 	})
-	someFood = someFood.slice(0, 10)
+	someFood = someFood.slice(0, 5)
 	var body = JSON.stringify(someFood);
 	response.setHeader('Content-type', 'application/json');
 	response.end(body);
