@@ -16,6 +16,16 @@ Install grunt-cli and bower and setup local app:
 
 ## Usage
 
+Build the application:
+
+	$ grunt build optimize
+
+Launch the application for production server:
+
+	$ node ./server/server.js &> jff-prod.log &
+
+## Develop
+
 Launch development environment:
 
 	$ grunt server
@@ -27,11 +37,3 @@ Launch frontend unit tests:
 Launch backend unit tests:
 
 	$ grunt test-back
-
-Build the application:
-
-	$ grunt build optimize
-
-Launch the application for production server:
-
-	$ node ./server/server.js &> jff-prod.log &
