@@ -83,9 +83,20 @@ describe('Warehouseman', function() {
     })
 
     it('should find foods with accent in name', function(done) {
+        // GIVEN
         var food = 'boerpaté'
-        // TODO
-        done()
+        var host = 'http://localhost:3000'
+
+        // WHEN
+        request.get(host + '/api/get-food-facts?q=' + food, function(error, response, body) {
+            var someFood = JSON.parse(body)
+            
+            // THEN
+            expect(error).to.be.null
+            expect(response.statusCode).to.equal(200)
+            expect(someFood.length).to.be.equal(1)
+            done()
+        })
     })
 
     it('should ignore accents in search string', function(done) {

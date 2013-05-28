@@ -80,7 +80,9 @@ app.get('/api/get-food-facts', function(request, response) {
 		var lowerNameFilter = unescape(nameFilter).toLowerCase().replace(/[éèçàùâêîôûäëüïöù]/g, function(match) {
 			return UNACCENTED_CHARS[match]
 		})
-		var lowerName = (element.name || '').toLowerCase()
+		var lowerName = (element.name || '').toLowerCase().replace(/[éèçàùâêîôûäëüïöù]/g, function(match) {
+			return UNACCENTED_CHARS[match]
+		})
         var lowerNameFilterWords = lowerNameFilter.split(/ +/)
         return containsAll(lowerName, lowerNameFilterWords)
 	})
